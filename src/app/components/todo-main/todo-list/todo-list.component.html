@@ -1,7 +1,7 @@
 <div class="todo-item" [class.completed]="todo()?.completed">
 
   <div class="todo-content">
-    <input type="checkbox" [checked]="todo()?.completed" (change)="toggleTodo(todo()?.id!)" class="todo-checkbox" />
+      <input type="checkbox" [checked]="todo()?.completed" (change)="toggleTodo(todo()?.id!)" class="todo-checkbox" />
 
     @if (isEditing()) {
     <input type="text" [(ngModel)]="editText" (keydown.enter)="saveEdit()" (blur)="saveEdit()" #editInput
