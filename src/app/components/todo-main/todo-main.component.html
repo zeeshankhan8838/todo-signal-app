@@ -1,0 +1,32 @@
+    <div class="todo-container">
+        <h1 class="todo-title">Angular 19 Todo App</h1>
+      
+        <!-- Add Todo Form -->
+        <div class="todo-form">
+          <input type="text" [(ngModel)]="newTodo" (keydown.enter)="addTodo()" placeholder="Add a todo" class="todo-input" />
+          <button (click)="addTodo()" class="add-button">Add</button>
+        </div>
+      
+        <!-- Filters -->
+        <app-todo-filter-buttons [currentFilter]="filter" (filterChange)="setFilter($event)"></app-todo-filter-buttons>
+      
+        <!-- Todo List -->
+        <div class="todo-list">
+          @if (todosList.length > 0) {
+
+          @for (todo of todosList; track todo.id) {
+          <app-todo-list [todo]="todo"></app-todo-list>
+          }
+
+          } @else {
+          <div class="empty-message">
+            {{ filter === filterEnum.all ? 'No todos yet' : 'No ' + filterEnum[filter] + ' todos' }}
+          </div>
+          }
+        </div>
+      
+        <!-- Footer -->
+        @if (todosList.length > 0) {
+        <app-todo-footer></app-todo-footer>
+        }
+      </div>

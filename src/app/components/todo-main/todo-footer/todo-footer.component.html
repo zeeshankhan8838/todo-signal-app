@@ -1,0 +1,16 @@
+<div class="footer">
+    @if(filter() === filterEnum.active){
+        <span class="item-count">{{ remaining() }} item{{ remaining() !== 1 ? 's' : '' }} left</span>
+    }
+    @if(filter() === filterEnum.completed){
+        <span class="item-count">{{ completed() }} item{{ completed() !== 1 ? 's' : '' }} completed</span>
+    }
+    @if(filter() === filterEnum.all){
+        <span class="item-count">{{ allItems() }} total item{{ allItems() !== 1 ? 's' : '' }}</span>
+    }
+    @if (hasCompleted() && filter() === filterEnum.completed) {
+    <button (click)="clearCompleted()" class="clear-button">
+        Clear completed
+    </button>
+    }
+</div>

@@ -1,0 +1,14 @@
+<div class="filter-container">
+    <button (click)="filterChange.emit(filterEnum.all)" class="filter-button"
+        [class.active]="currentFilter() === filterEnum.all">
+        All
+    </button>
+    <button (click)="filterChange.emit(filterEnum.active)" class="filter-button"
+        [class.active]="currentFilter() === filterEnum.active">
+        Active
+    </button>
+    <button (click)="filterChange.emit(filterEnum.completed)" class="filter-button"
+        [class.active]="currentFilter() === filterEnum.completed">
+        Completed
+    </button>
+</div>

@@ -1,0 +1,32 @@
+<div class="todo-item" [class.completed]="todo()?.completed">
+
+  <div class="todo-content">
+    <input type="checkbox" [checked]="todo()?.completed" (change)="toggleTodo(todo()?.id!)" class="todo-checkbox" />
+
+    @if (isEditing()) {
+    <input type="text" [(ngModel)]="editText" (keydown.enter)="saveEdit()" (blur)="saveEdit()" #editInput
+      class="todo-edit-input" />
+    } @else {
+    <div class="todo-text" (dblclick)="startEdit()">
+      <span class="todo-title">{{ todo()?.title }}</span>
+      <span class="todo-date">{{ todo()?.date |date:'mediumDate' }}</span>
+    </div>
+    }
+  </div>
+
+  <div class="todo-actions">
+    @if (!isEditing()) {
+    <button (click)="startEdit()" class="edit-button" [disabled]="todo()?.completed"
+    >
+      Edit
+    </button>
+    <button (click)="toggleTodo(todo()?.id!)" class="toggle-button">
+      {{ todo()?.completed ? 'Undo' : 'Complete' }}
+    </button>
+    <button (click)="deleteTodo(todo()?.id!)" class="delete-button">
+      Delete
+    </button>
+    }
+  </div>
+
+</div>
