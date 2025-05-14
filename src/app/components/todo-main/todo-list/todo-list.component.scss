@@ -6,6 +6,7 @@ $border: #e0e0e0;
 $text-muted: #888;
 $bg-white: #fff;
 $bg-grey:#d9d9d9;
+$bg-yellow:#faaf0e;
 
 
 // Mixin for button styles
@@ -42,11 +43,66 @@ $bg-grey:#d9d9d9;
     align-items: center;
     flex: 1;
 
-    .todo-checkbox {
-      margin-right: 10px;
-      width: 18px;
-      height: 18px;
-      accent-color: $primary;
+    .custom-checkbox {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+
+      input[type="checkbox"] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+
+      input[type="checkbox"]:checked ~ .checkmark {
+        background-color: #4caf50;
+        border-color: #4caf50;
+      }
+
+      .checkmark {
+        position: absolute;
+        top: 0; left: 0;
+        height: 26px; width: 26px;
+        background-color: #fff;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        transition: border-color 0.2s, background 0.2s;
+        box-sizing: border-box;
+        &:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+      }
+      &:hover{
+          border-color: #888;
+      }
+  
+    }
+     
+    .custom-checkbox:hover .checkmark:after {
+      display: block;
+      left: 7px;
+      top: 1px;
+      width: 7px;
+      height: 13px;
+      border: solid #888;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+    
+    .custom-checkbox input[type="checkbox"]:checked ~ .checkmark:after {
+      display: block;
+      left: 7px;
+      top: 1px;
+      width: 7px;
+      height: 13px;
+      border: solid #fff;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
     }
 
     .todo-edit-input {
@@ -60,6 +116,7 @@ $bg-grey:#d9d9d9;
     .todo-text {
       display: flex;
       flex-direction: column;
+      margin-left: 1rem;
     }
 
     .todo-title {
@@ -92,8 +149,11 @@ $bg-grey:#d9d9d9;
       @include todo-btn($edit);
     }
 
-    .toggle-button {
+    .complete-button {
       @include todo-btn($primary);
+    }
+    .undo-button {
+      @include todo-btn($bg-yellow);
     }
 
     .delete-button {
@@ -111,3 +171,4 @@ $bg-grey:#d9d9d9;
   text-decoration: line-through;
   color: $text-muted;
 }
+

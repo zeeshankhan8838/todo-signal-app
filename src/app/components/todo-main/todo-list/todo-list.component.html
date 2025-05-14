@@ -1,8 +1,14 @@
 <div class="todo-item" [class.completed]="todo()?.completed">
 
   <div class="todo-content">
-      <input type="checkbox" [checked]="todo()?.completed" (change)="toggleTodo(todo()?.id!)" class="todo-checkbox" />
-
+    <label class="custom-checkbox">
+      <input
+        type="checkbox"
+        [checked]="todo()?.completed"
+        (change)="toggleTodo(todo()?.id!)"
+      />
+      <span class="checkmark"></span>
+    </label>
     @if (isEditing()) {
     <input type="text" [(ngModel)]="editText" (keydown.enter)="saveEdit()" (blur)="saveEdit()" #editInput
       class="todo-edit-input" />
@@ -20,7 +26,7 @@
     >
       Edit
     </button>
-    <button (click)="toggleTodo(todo()?.id!)" class="toggle-button">
+    <button (click)="toggleTodo(todo()?.id!)" [ngClass]="{'complete-button': !todo()?.completed, 'undo-button': todo()?.completed}">
       {{ todo()?.completed ? 'Undo' : 'Complete' }}
     </button>
     <button (click)="deleteTodo(todo()?.id!)" class="delete-button">
