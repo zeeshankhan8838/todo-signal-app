@@ -12,7 +12,7 @@ $bg-yellow: #faaf0e;
 // Mixin for button styles
 @mixin todo-btn($bg) {
   background-color: $bg;
-  color: white;
+  color: $bg-white;
   border: none;
   border-radius: 3px;
   padding: 3px 8px;

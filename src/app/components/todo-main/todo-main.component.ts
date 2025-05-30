@@ -1,4 +1,4 @@
-import { Component, effect, model } from '@angular/core';
+import { Component, effect, inject, model } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoFilterButtonsComponent } from './todo-filter-buttons/todo-filter-buttons.component';
 import { FilterType, Todo } from '../../interfaces/todo.interface';
@@ -13,15 +13,16 @@ import { TodoService } from '../../service/todo.service';
   styleUrl: './todo-main.component.scss'
 })
 export class TodoMainComponent {
+
+  todoService=inject(TodoService)
   todosList: Todo[] = [];
   newTodo = model('');
-  filter: FilterType = FilterType.all;
+  filterSignal = this.todoService.filter;
   filterEnum = FilterType
 
-  constructor(private todoService: TodoService) {
+  constructor() {
     effect(() => {
       this.todosList=this.todoService.getTodoFilterList(this.todoService.filter());
-      this.filter = this.todoService.filter();
     });
   }
 
@@ -34,7 +35,6 @@ export class TodoMainComponent {
 
    setFilter(filter: any): void {
     this.todoService.filter.set(filter);
-    this.todosList=this.todoService.getTodoFilterList(filter);
   } 
 
 }

@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './todo-list.component.scss'
 })
 export class TodoListComponent {
-  todo = input<Todo>();
+  todoSignal = input<Todo>({} as Todo);
   isEditing = signal(false);
   editText = model('');
 
@@ -18,16 +18,17 @@ export class TodoListComponent {
 
   startEdit(): void {
     this.isEditing.set(true);
-    this.editText.set(this.todo()?.title!);
+    this.editText.set(this.todoSignal()?.title!);
   }
 
   saveEdit(): void {
+    const todo=this.todoSignal()
     if (this.isEditing() && this.editText().trim()) {
       const updatedTodo: Todo =
       {
-        ...this.todo(),
-        id: this.todo()?.id!,
-        completed: this.todo()?.completed ?? false,
+        ...todo,
+        id: this.todoSignal()?.id!,
+        completed: this.todoSignal()?.completed ?? false,
         title: this.editText(),
         date: new Date()
       }
@@ -37,9 +38,9 @@ export class TodoListComponent {
   }
 
 
-  toggleTodo(id: number): void {
+  toggleTodo(todoOItem: Todo): void {
     let todosList = this.todoService.todosList();
-    const todoIndex = todosList.findIndex(todo => todo.id === id);
+    const todoIndex = todosList.findIndex(todo => todo.id === todoOItem.id);
     if (todoIndex !== -1) {
       const updatedTodo: Todo = {
         ...todosList[todoIndex],

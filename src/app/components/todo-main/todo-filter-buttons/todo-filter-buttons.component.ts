@@ -1,5 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { FilterType } from '../../../interfaces/todo.interface';
+import { CountPipe } from '../pipes/count.pipe';
 
 @Component({
   selector: 'app-todo-filter-buttons',
@@ -11,4 +12,9 @@ export class TodoFilterButtonsComponent {
   currentFilter = input(FilterType.all);
   filterChange = output<FilterType>();
   filterEnum=FilterType
+
+   isActive(filterType:FilterType){
+    return this.currentFilter()===filterType
+  }
+  
 }

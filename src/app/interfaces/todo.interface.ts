@@ -4,8 +4,9 @@ export interface Todo {
     completed: boolean;
     date?: Date
 }
+
 export enum FilterType {
-    'all' = 0,
+    'all' ,
     'active',
     'completed'
 }

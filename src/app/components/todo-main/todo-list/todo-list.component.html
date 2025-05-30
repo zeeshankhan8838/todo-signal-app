@@ -1,11 +1,12 @@
-<div class="todo-item" [class.completed]="todo()?.completed">
+@if(todoSignal(); as todo){
+<div class="todo-item" [class.completed]="todo.completed">
 
   <div class="todo-content">
     <label class="custom-checkbox">
       <input
         type="checkbox"
-        [checked]="todo()?.completed"
-        (change)="toggleTodo(todo()?.id!)"
+        [checked]="todo.completed"
+        (change)="toggleTodo(todo)"
       />
       <span class="checkmark"></span>
     </label>
@@ -14,25 +15,27 @@
       class="todo-edit-input" />
     } @else {
     <div class="todo-text" (dblclick)="startEdit()">
-      <span class="todo-title">{{ todo()?.title }}</span>
-      <span class="todo-date">{{ todo()?.date |date:'mediumDate' }}</span>
+      <span class="todo-title">{{ todo.title }}</span>
+      <span class="todo-date">{{ todo.date |date:'mediumDate' }}</span>
     </div>
     }
   </div>
 
   <div class="todo-actions">
     @if (!isEditing()) {
-    <button (click)="startEdit()" class="edit-button" [disabled]="todo()?.completed"
+    <button (click)="startEdit()" class="edit-button" [disabled]="todo.completed"
     >
       Edit
     </button>
-    <button (click)="toggleTodo(todo()?.id!)" [ngClass]="{'complete-button': !todo()?.completed, 'undo-button': todo()?.completed}">
-      {{ todo()?.completed ? 'Undo' : 'Complete' }}
+    <button (click)="toggleTodo(todo)" [ngClass]="{'complete-button': !todo.completed, 'undo-button': todo.completed}">
+      {{ todo.completed ? 'Undo' : 'Complete' }}
     </button>
-    <button (click)="deleteTodo(todo()?.id!)" class="delete-button">
+    <button (click)="deleteTodo(todo.id)" class="delete-button">
       Delete
     </button>
     }
   </div>
 
 </div>
+
+}

@@ -12,32 +12,36 @@ export class TodoService {
   constructor() { }
 
   addTodo(newTodo: string): void {
-      this.todosList.update(todos => [{
-        id: Date.now(),
-        title: newTodo,
-        completed: false,
-        date: new Date()
-      }, ...todos]);    
+    let todoOject={
+      id: Date.now(),
+      title: newTodo,
+      completed: false,
+      date: new Date()
+    }
+   const updatedArray= [todoOject, ...this.todosList()]
+    this.todosList.set(updatedArray);    
   }
 
   getTodoFilterList(filter: FilterType): Todo[] {
-    return this.todosList().filter(todo => {
-      switch (filter) {
-        case FilterType.all:
-          return true;
-        case FilterType.active:
-          return !todo.completed;
-        case FilterType.completed:
-          return todo.completed;
-        default:
-          return true;
-      }
-    });
+    if(filter === FilterType.all){
+      return this.todosList();
+    }
+    else if(filter === FilterType.completed){
+   return  this.todosList().filter(todo=>todo.completed)
+    }
+    else {
+      return this.todosList().filter(todo=>!todo.completed)
+    }
+
   }
 
   editTodo(updatedTodo: Todo): void {
     const index = this.todosList().findIndex(t => t.id === updatedTodo.id);
     if (index !== -1) {
+      let todoListCopy=[...this.todosList()]
+      todoListCopy.splice(index,1,updatedTodo)
+      this.todosList.set(todoListCopy)
+     
       this.todosList.update(todos => [...todos.slice(0, index), updatedTodo, ...todos.slice(index + 1)]);
     }
   }
