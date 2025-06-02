@@ -3,12 +3,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoFilterButtonsComponent } from './todo-filter-buttons/todo-filter-buttons.component';
 import { FilterType, Todo } from '../../interfaces/todo.interface';
 import { TodoFooterComponent } from './todo-footer/todo-footer.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoService } from '../../service/todo.service';
 
 @Component({
   selector: 'app-todo-main',
-  imports: [FormsModule, ReactiveFormsModule, TodoFilterButtonsComponent, TodoFooterComponent, TodoListComponent],
+  imports: [FormsModule, ReactiveFormsModule, TodoFilterButtonsComponent, TodoFooterComponent, TodoItemComponent],
   templateUrl: './todo-main.component.html',
   styleUrl: './todo-main.component.scss'
 })
@@ -36,5 +36,11 @@ export class TodoMainComponent {
    setFilter(filter: any): void {
     this.todoService.filter.set(filter);
   } 
+
+  get isTodoListEmpty(): boolean {
+    return this.filterSignal() === this.filterEnum.ALL && this.todosList.length === 0;
+  }
+
+  
 
 }

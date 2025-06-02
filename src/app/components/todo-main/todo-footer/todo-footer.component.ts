@@ -1,11 +1,10 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FilterType } from '../../../interfaces/todo.interface';
 import { TodoService } from '../../../service/todo.service';
-import { CountPipe } from '../pipes/count.pipe';
 
 @Component({
   selector: 'app-todo-footer',
-  imports: [CountPipe],
+  imports: [],
   templateUrl: './todo-footer.component.html',
   styleUrl: './todo-footer.component.scss'
 })
@@ -18,7 +17,7 @@ export class TodoFooterComponent {
   allItems = computed(() => this.todos().length);
   hasCompleted = computed(() => this.todoService.todosList().some(todo => todo.completed));
 
-  filter = signal<FilterType>(FilterType.all);
+  filter = signal<FilterType>(FilterType.ALL);
   filterEnum = FilterType
 
   constructor() {
@@ -29,7 +28,7 @@ export class TodoFooterComponent {
 
   clearCompleted() {
     this.todoService.clearCompleted();
-    this.todoService.filter.set(FilterType.all);
+    this.todoService.filter.set(FilterType.ALL);
   }
 
 }

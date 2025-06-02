@@ -1,20 +1,25 @@
 <div class="footer">
 
     @switch (filter()) {
-        @case (filterEnum.all) {
-            <span [innerHTML]="allItems()|count"></span>
+        @case (filterEnum.ALL) {
+            <ng-template [ngTemplateOutlet]="itemCount" [ngOutletContext]="{array: allItems()}"></ng-template>
         }
-        @case (filterEnum.active) {
-            <span [innerHTML]="remaining()|count"></span>
+        @case (filterEnum.ACTIVE) {
+            <ng-template [ngTemplateOutlet]="itemCount" [ngOutletContext]="{array: remaining()}"></ng-template>
         }
-        @case (filterEnum.completed) {
-            <span [innerHTML]="completed()|count"></span>
+        @case (filterEnum.COMPLETED) {
+            <ng-template [ngTemplateOutlet]="itemCount" [ngOutletContext]="{array: completed()}"></ng-template>
         }
     }
 
-    @if (hasCompleted() && filter() === filterEnum.completed) {
+ 
+    @if (hasCompleted() && filter() === filterEnum.COMPLETED) {
     <button (click)="clearCompleted()" class="clear-button">
         Clear completed
     </button>
     }
 </div>
+
+<ng-template #itemCount let-array>
+    <span class="item-count">{{array}}  item {{array !== 1 ? 's' : '' }} </span>
+</ng-template>

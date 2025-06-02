@@ -7,7 +7,7 @@ import { FilterType, Todo } from '../interfaces/todo.interface';
 export class TodoService {
 
   todosList= signal<Todo[]>([]);
-  filter= signal<FilterType>(FilterType.all);
+  filter= signal<FilterType>(FilterType.ALL);
 
   constructor() { }
 
@@ -23,11 +23,11 @@ export class TodoService {
   }
 
   getTodoFilterList(filter: FilterType): Todo[] {
-    if(filter === FilterType.all){
+    if(filter === FilterType.ALL){
       return this.todosList();
     }
-    else if(filter === FilterType.completed){
-   return  this.todosList().filter(todo=>todo.completed)
+    else if(filter === FilterType.COMPLETED){
+      return  this.todosList().filter(todo=>todo.completed)
     }
     else {
       return this.todosList().filter(todo=>!todo.completed)
@@ -40,9 +40,7 @@ export class TodoService {
     if (index !== -1) {
       let todoListCopy=[...this.todosList()]
       todoListCopy.splice(index,1,updatedTodo)
-      this.todosList.set(todoListCopy)
-     
-      this.todosList.update(todos => [...todos.slice(0, index), updatedTodo, ...todos.slice(index + 1)]);
+      this.todosList.set(todoListCopy)    
     }
   }
 
@@ -54,6 +52,4 @@ export class TodoService {
     this.todosList.update(todos => todos.filter(todo => !todo.completed));
   }
   
-  
-
 }

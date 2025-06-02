@@ -19,12 +19,12 @@
           @if (todosList.length > 0) {
 
           @for (todo of todosList; track todo.id) {
-          <app-todo-list [todoSignal]="todo"></app-todo-list>
+          <app-todo-item [todoSignal]="todo"></app-todo-item>
           }
 
           } @else {
           <div class="empty-message">
-            {{ filterSignal() === filterEnum.all ? 'No todos yet' : 'No ' + filterEnum[filterSignal()] + ' todos' }}
+            {{ isTodoListEmpty ? 'No todos yet' : 'No ' + filterEnum[filterSignal()] + ' todos' }}
           </div>
           }
         </div>

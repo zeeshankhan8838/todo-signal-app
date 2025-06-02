@@ -4,12 +4,12 @@ import { Todo } from '../../../interfaces/todo.interface';
 import { TodoService } from '../../../service/todo.service';
 import { CommonModule } from '@angular/common';
 @Component({
-  selector: 'app-todo-list',
+  selector: 'app-todo-item',
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './todo-list.component.html',
-  styleUrl: './todo-list.component.scss'
+  templateUrl: './todo-item.component.html',
+  styleUrl: './todo-item.component.scss'
 })
-export class TodoListComponent {
+export class TodoItemComponent {
   todoSignal = input<Todo>({} as Todo);
   isEditing = signal(false);
   editText = model('');
